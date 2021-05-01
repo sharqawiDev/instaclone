@@ -6,7 +6,7 @@ import firebase from 'firebase';
 import { createStackNavigator } from '@react-navigation/stack';
 import Landing from './components/auth/Landing';
 import Register from './components/auth/Register';
-import Login from './components/auth/Register';
+import Login from './components/auth/Login';
 
 const Stack = createStackNavigator();
 const firebaseConfig = {
@@ -21,9 +21,6 @@ const firebaseConfig = {
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
-
-
-
 
 export default class App extends Component {
   constructor(params) {

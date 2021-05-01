@@ -1,28 +1,36 @@
 import React, { Component } from 'react'
 import { Button, TextInput, View } from 'react-native'
 import firebase from "firebase"
-export default class Login extends Component {
+export default class Register extends Component {
     constructor(params) {
         super(params)
         this.state = {
+            name: '',
             email: "",
             password: "",
         }
     }
-    onLogin = () => {
+    onRegister = () => {
         const { email, password, name } = this.state;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                console.log(result)
-                this.emailInput.clear()
-                this.passInput.clear()
-            })
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((result) => console.log(result))
             .catch((error) => console.log(error))
 
+        this.nameInput.clear()
+        this.emailInput.clear()
+        this.passInput.clear()
     }
     render() {
         return (
             <View>
+                <TextInput
+                    placeholder="Name"
+                    onChangeText={(name) => this.setState({ name })}
+                    autoCompleteType={"name"}
+                    textContentType={"name"}
+                    clearButtonMode="always"
+                    ref={input => { this.nameInput = input }}
+                />
                 <TextInput
                     placeholder="Email"
                     onChangeText={(email) => this.setState({ email })}
@@ -43,8 +51,8 @@ export default class Login extends Component {
                     ref={input => { this.passInput = input }}
                 />
                 <Button
-                    onPress={() => this.onLogin()}
-                    title="Login"
+                    onPress={() => this.onRegister()}
+                    title="Register"
                 />
             </View>
         )
