@@ -4,9 +4,16 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import firebase from 'firebase';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from "react-redux"
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from "./redux/reducers"
+import thunk from "redux-thunk"
 import Landing from './components/auth/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import MainScreen from "./components/Main"
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const Stack = createStackNavigator();
 const firebaseConfig = {
@@ -65,9 +72,9 @@ export default class App extends Component {
       )
 
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>User is logged in</Text>
-      </View>
+      <Provider store={store}>
+        <MainScreen />
+      </Provider>
     )
   }
 }

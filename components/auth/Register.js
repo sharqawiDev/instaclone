@@ -13,7 +13,15 @@ export default class Register extends Component {
     onRegister = () => {
         const { email, password, name } = this.state;
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((result) => console.log(result))
+            .then((result) => {
+                firebase.firestore().collection("users")
+                    .doc(firebase.auth().currentUser.uid)
+                    .set({
+                        name,
+                        email
+                    })
+                console.log(result)
+            })
             .catch((error) => console.log(error))
 
         this.nameInput.clear()
