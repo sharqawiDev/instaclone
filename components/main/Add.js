@@ -4,7 +4,7 @@ import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
 
-export default function App() {
+export default function Add({ navigation }) {
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
     const [camera, setCamera] = useState(null);
@@ -36,12 +36,14 @@ export default function App() {
             quality: 1,
         });
 
-        console.log(result);
-
         if (!result.cancelled) {
             setImage(result.uri);
         }
     };
+
+    const goSave = () => {
+        navigation.navigate("Save", { image })
+    }
 
     if (hasCameraPermission === null || hasGalleryPermission === null) {
         return <View />;
@@ -65,6 +67,7 @@ export default function App() {
                 }} />
 
             <Button title="Shoot" onPress={() => takePic()} />
+            <Button title="Save" onPress={() => goSave()} />
             <Button title="Pick" onPress={() => pickImage()} />
             {image && <Image source={{ uri: image }} style={styles.image} />}
 

@@ -13,6 +13,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import MainScreen from "./components/Main"
 import Add from './components/main/Add';
+import Save from './components/main/Save';
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -78,6 +79,7 @@ export default class App extends Component {
           <Stack.Navigator initialRoute="Main" >
             <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Add" component={Add} />
+            <Stack.Screen name="Save" component={Save} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
